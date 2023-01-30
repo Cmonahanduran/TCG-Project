@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %} {% endblock %}
+
+{% block body %}
+<h1>Hello </h1>
+<h2>Dashboard</h2>
+<ul>
+    <li><a href="/cards">View all cards</a></li>
+</ul>
+<form action="/usersPage" method="POST">
+    <input type="search" aria-label="Search" name="card" placeholder="Search for cards" value="" style="border-left-width: 0px;">
+</form>
+
+<form action="/usersPage" method="POST">
+    <p>
+        Deck Name <input type="text" name="deckName">
+    </p>
+    <p>
+        <input type="submit">
+    </p>
+    </form>
+{% endblock %}
