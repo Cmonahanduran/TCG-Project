@@ -17,7 +17,8 @@ class User(db.Model):
     password = db.Column(db.String)
 
     cards = db.relationship("Card", secondary='collection', back_populates="users")
-
+    decks = db.relationship("Deck", back_populates='users')
+    
     def __repr__(self):
         return f'<User username={self.username} email={self.email}>'
 
@@ -32,7 +33,7 @@ class Collection(db.Model):
     collection_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     card_id = db.Column(db.Integer, db.ForeignKey('card.id'), nullable=False)
     username = db.Column(db.String, db.ForeignKey('users.username'), nullable=False)
-
+    
 
     def __repr__(self):
         return f'<Collection card_id={self.card_id} username={self.username}>'
@@ -86,7 +87,8 @@ class Deck(db.Model):
     username = db.Column(db.String, db.ForeignKey('users.username'), nullable=False)
 
     cards = db.relationship("Card", secondary='cardhandler', back_populates='decks')
-
+    users = db.relationship("User", back_populates='decks')
+    
     def __repr__(self):
         return f"<Deck deck_id={self.deck_id} deck_name={self.deck_name}>"
 

@@ -46,11 +46,31 @@ def create_deck(deck_name, username):
 
     return deck
 
+def get_deck(deck_id):
+
+    return Deck.query.get(deck_id)
+
+
 def get_card_by_id(id):
 
     return Card.query.get(id)
 
+def add_card_to_deck(id,deck_name):
 
+    card = Card.query.get(id)
+    deck = Deck.query.filter(Deck.deck_name == deck_name).first()
+
+    deck.cards.append(card)
+    return deck
+
+
+def add_card_to_user(id,collection_id):
+
+    card = Card.query.get(id)
+    collection = Collection.query.get(collection_id)
+    user.cards.append(card)
+    #pass in user_id
+    return collection
 
 if __name__ == '__main__':
     from server import app

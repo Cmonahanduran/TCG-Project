@@ -10,7 +10,19 @@
 </p>
 
 <img src="{{ card.imageUrl }}">
-<form 
+  
+<form action="/add_to_deck/{{card.id}}" method="POST">
+  <div class="dropdown">
+    <div class="user-decks"> 
+      <select name="Deck" id="deck-name">
+      {% for deck in decks %}
+     <option value="{{ deck.deck_name }}">{{ deck.deck_name }}</option>
+      {% endfor %}
+      </select>
+    </div>
+  </div>
+  <input type="submit">
+</form>
 
 
 {% endblock %}

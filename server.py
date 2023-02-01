@@ -72,11 +72,11 @@ def user_page():
     db.session.add(deck)
     db.session.commit()
     flash("Deck creation succesful!")
-    
+    user = crud.get_user_by_username(username)
+    user_decks = user.decks
 
 
-
-    return render_template('user_page.html')
+    return render_template('user_page.html', user_decks=user_decks)
 
 
 
@@ -90,15 +90,24 @@ def view_cards():
 
 @app.route('/cards/<id>')
 def show_card(id):
-    print(id)
-    print(type(id))
+   
     card = crud.get_card_by_id(id)
+    username = session['username']
+    user = crud.get_user_by_username(username)
+    decks = user.decks
+    
+    return render_template('card_details.html', card=card, decks=decks)
 
-    return render_template('card_details.html', card=card)
+@app.route('/add_to_deck/<id>', methods=['post'])
+def add_cards(id):
 
-@app.route('/add_to_deck', methods=['post'])
-def add_cards():
-    return
+    deck_name = request.form.get("Deck")
+
+    add = crud.add_card_to_deck(id,deck_name)
+    db.session.add(add)
+    db.session.commit()
+    flash(f"Card added to {deck_name}")
+    return redirect(f"/cards/{id}")
 
 if __name__ == "__main__":
     connect_to_db(app)
