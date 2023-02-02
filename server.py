@@ -51,7 +51,7 @@ def login_authentication():
     if user:
         if user.password == password:
             session['username'] = username
-            return render_template('user_page.html')
+            return redirect('/usersPage')
         else:
             flash("Incorrect password")
             return redirect('/')
@@ -60,10 +60,20 @@ def login_authentication():
         return redirect('/')
 
     
-@app.route('/usersPage', methods=['POST'])
+@app.route('/usersPage')
 def user_page():
     """Display deck/create deck"""
    
+    username = session['username']
+    user = crud.get_user_by_username(username)
+    user_decks = user.decks
+    
+
+    return render_template('user_page.html', user_decks=user_decks)
+
+
+@app.route('/create_deck', methods=['POST'])
+def create_deck():
     deck_name = request.form.get("deckName")
 
     username = session['username']
@@ -72,14 +82,7 @@ def user_page():
     db.session.add(deck)
     db.session.commit()
     flash("Deck creation succesful!")
-    user = crud.get_user_by_username(username)
-    user_decks = user.decks
-
-
-    return render_template('user_page.html', user_decks=user_decks)
-
-
-
+    return redirect('/usersPage')
 
 @app.route('/cards')
 def view_cards():
@@ -108,6 +111,22 @@ def add_cards(id):
     db.session.commit()
     flash(f"Card added to {deck_name}")
     return redirect(f"/cards/{id}")
+
+@app.route('remove_card', methods=['POST'])
+def remove_card_from_deck():
+
+    card_to_remove = request.form.get("Card")
+
+
+
+@app.route('/deck', methods=['POST'])
+def show_deck_contents():
+    deck_id = request.form.get("Deck")
+    deck = crud.get_deck(deck_id)
+    cards = deck.cards
+    return render_template("deck_details.html", deck=deck, cards=cards)
+
+
 
 if __name__ == "__main__":
     connect_to_db(app)

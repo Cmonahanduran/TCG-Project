@@ -1,17 +1,29 @@
 {% extends 'base.html' %}
 {% block title %} {% endblock %}
+    
 
-{% block body %}
+    {% block body %}
 <h1>Hello </h1>
 <h2>Dashboard</h2>
 <ul>
     <li><a href="/cards">View all cards</a></li>
 </ul>
-<form action="/usersPage" method="POST">
-    <input type="search" aria-label="Search" name="card" placeholder="Search for cards" value="" style="border-left-width: 0px;">
-</form>
+<!--
+<div class="search-wrapper">
+  <label for="search">Search Cards</label>
+  <input type="search" id="search">
+</div>
+<div class="cards">
+  {% for card in cards %}
+  <div class="card">
+    <div class="card-name">{{card.name}}</div>
+    <div class="card-image">{{ card.imageUrl}}</div>
+  </div>
+  {% endfor %}
+</div>
+-->
 
-<form action="/usersPage" method="POST">
+<form action="/create_deck" method="POST">
     <p>
         Deck Name <input type="text" name="deckName">
     </p>
@@ -19,8 +31,23 @@
         <input type="submit">
     </p>
     </form>
-<div>
-    
 </div>
+<h1>View Decks</h1>
+<form action="/deck" method="POST">
+    <div class="dropdown">
+      <div class="user-decks"> 
+        <select name="Deck" id="deck-name">
+        {% for deck in user_decks %}
+       <option value="{{ deck.deck_id }}">{{ deck.deck_name }}</option>
+        {% endfor %}
+        </select>
+      </div>
+    </div>
+    <input type="submit">
+  </form>
+
+  
+
+
 
 {% endblock %}
