@@ -18,7 +18,7 @@ class User(db.Model):
 
     cards = db.relationship("Card", secondary='collection', back_populates="users")
     decks = db.relationship("Deck", back_populates='users')
-    posts = db.relationship("Post", back_populates="users")
+    posts = db.relationship("Post", back_populates="user")
     def __repr__(self):
         return f'<User username={self.username} email={self.email}>'
 
@@ -105,7 +105,7 @@ class Post(db.Model):
     username = db.Column(db.String, db.ForeignKey('users.username'), nullable=False)
 
     
-    users = db.relationship("User", back_populates="posts")
+    user = db.relationship("User", back_populates="posts")
 
     def __repr__(self):
         return f"<Post post_title={self.post_title} post_text={self.post_text}"
