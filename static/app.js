@@ -1,6 +1,17 @@
 const searchInput = document.querySelector("#search");
 let allCardsData = null;
 
+const getCardHTML = (card) =>
+{
+    return `<div class="card" style="width: 18rem;">
+        <img src="${ card.imageUrl }" class="card-img-top">
+        <div class="card-body">
+            <h5 class="card-title">${ card.name }</h5>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>`
+};
+
 searchInput.addEventListener("input", (e) => {
     const value = e.target.value;
     
@@ -21,11 +32,12 @@ searchInput.addEventListener("input", (e) => {
 
     //const filteredCards = Array.from(allCardsData).filter(checkName);
     //console.log(filteredCards);
+
+    //delete eveything inside the div, then add search results
+    div.innerHTML = '';
     for (let i = 0; i < filteredCards.length; i++) {
-        // const html = createHTMLForm(data, i);
-        // console.log(html);
-        // div.insertAdjacentHTML('beforeend', html);
-        console.log(filteredCards[i].name);
+        console.log(filteredCards[i].imageUrl);
+        div.insertAdjacentHTML('beforeend', getCardHTML(filteredCards[i]));
     }
 });
 
