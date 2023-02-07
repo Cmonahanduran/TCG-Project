@@ -18,7 +18,7 @@ class User(db.Model):
 
     cards = db.relationship("Card", secondary='collection', back_populates="users")
     decks = db.relationship("Deck", back_populates='users')
-    
+    posts = db.relationship("Post", back_populates="users")
     def __repr__(self):
         return f'<User username={self.username} email={self.email}>'
 
@@ -64,7 +64,8 @@ class Card(db.Model):
 
     def __repr__(self):
         return f"<Card id={self.id} name={self.name} manaCost={self.manaCost} cmc={self.cmc} colors={self.colors} colorIdentity={self.colorIdentity} type={self.type} rarity={self.rarity} setName={self.setName} text={self.text}  flavor={self.flavor} artist={self.artist} imageUrl={self.imageUrl} "
-
+    def get_json(self):
+        return { 'id': self.id, 'name' : self.name, 'imageUrl': self.imageUrl }
 class CardHandler(db.Model):
     """Handles the cards between decks."""
 
@@ -92,6 +93,22 @@ class Deck(db.Model):
     def __repr__(self):
         return f"<Deck deck_id={self.deck_id} deck_name={self.deck_name}>"
 
+
+
+class Post(db.Model):
+
+    __tablename__ = 'post'
+
+    post_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    post_title = db.Column(db.String)
+    post_text = db.Column(db.String)
+    username = db.Column(db.String, db.ForeignKey('users.username'), nullable=False)
+
+    
+    users = db.relationship("User", back_populates="posts")
+
+    def __repr__(self):
+        return f"<Post post_title={self.post_title} post_text={self.post_text}"
 
 def connect_to_db(flask_app, db_uri="postgresql:///cards", echo=True):
     flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri

@@ -13,8 +13,11 @@
           <h6 class="card-subtitle mb-2 text-muted">{{ card.rarity}}</h6>
           <p class="card-text">{{ card.text}}</p>
         </div>
-        <form action="/remove_card/{{card.id}}" method="POST">   
-          <input type="submit">
+        <form action="/remove_card" method="POST"> 
+            <input type="hidden" name="card_to_remove" value='{{ card.id }}'>
+            <input type="hidden" name="deck_to_remove_from" value="{{ deck.deck_name }}">
+            
+          <input type="submit" value="Delete">
         </form>
       </div>
       {% endfor %}

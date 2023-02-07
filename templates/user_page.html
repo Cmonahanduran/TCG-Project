@@ -8,20 +8,7 @@
 <ul>
     <li><a href="/cards">View all cards</a></li>
 </ul>
-<!--
-<div class="search-wrapper">
-  <label for="search">Search Cards</label>
-  <input type="search" id="search">
-</div>
-<div class="cards">
-  {% for card in cards %}
-  <div class="card">
-    <div class="card-name">{{card.name}}</div>
-    <div class="card-image">{{ card.imageUrl}}</div>
-  </div>
-  {% endfor %}
-</div>
--->
+
 
 <form action="/create_deck" method="POST">
     <p>
@@ -47,7 +34,5 @@
   </form>
 
   
-
-
 
 {% endblock %}

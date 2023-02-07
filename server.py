@@ -1,4 +1,4 @@
-from flask import Flask, render_template,request, flash, session, redirect
+from flask import Flask, render_template,request, flash, session, redirect, jsonify
 
 from model import connect_to_db, db
 
@@ -91,6 +91,16 @@ def view_cards():
 
     return render_template('card_list.html', cards=cards)
 
+@app.route('/all_cards')
+def json_cards():
+    cards_json = []
+    cards = crud.create_card_list()
+    
+    for card in cards:
+        cards_json.append(card.get_json())
+
+    return jsonify(cards = cards_json)
+
 @app.route('/cards/<id>')
 def show_card(id):
    
@@ -112,10 +122,17 @@ def add_cards(id):
     flash(f"Card added to {deck_name}")
     return redirect(f"/cards/{id}")
 
-@app.route('remove_card', methods=['POST'])
+@app.route('/remove_card', methods=['POST'])
 def remove_card_from_deck():
 
-    card_to_remove = request.form.get("Card")
+    id = request.form.get("card_to_remove")
+    deck_name = request.form.get("deck_to_remove_from")
+    
+    remove = crud.remove_card_from_deck(id,deck_name)
+    db.session.add(remove)
+    db.session.commit()
+    flash(f"Card removed from {deck_name}")
+    return redirect('/usersPage')
 
 
 

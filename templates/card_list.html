@@ -1,9 +1,35 @@
 {% extends 'base.html' %}
+
 {% block title %} {% endblock %}
 
+
+
+
+
 {% block body %}
+
     <h1>All Cards</h1>
+
+    <ul>
+        <li><a href="/usersPage">User Page</a></li>
+    </ul>
+
+
     
+    <div class="search-wrapper">
+        <label for="search">Search Cards</label>
+        <input type="search" id="search" >
+    </div>
+<div class ="user-cards" >
+  
+    <div  id="filter_results">
+    
+
+    </div>
+   
+</div>
+    
+
     <ul>
         {% for card in cards %}
             <li>
@@ -14,5 +40,5 @@
             </li>
             {% endfor %}
     </ul>
-
+    <script src="/static/app.js"></script>
 {% endblock %}

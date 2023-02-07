@@ -1,6 +1,6 @@
 """Crud operations"""
 
-from model import db, User, Collection, Card, CardHandler, Deck, connect_to_db
+from model import db, User, Collection, Card, CardHandler, Deck,Post, connect_to_db
 
 # User functions
 def create_user(username, email, password):
@@ -15,6 +15,7 @@ def get_user_by_username(username):
 
 
 #Card functions
+
 
 def get_card_by_color(colors):
 
@@ -68,10 +69,29 @@ def add_card_to_deck(id,deck_name):
 
 def remove_card_from_deck(id,deck_name):
     deck = Deck.query.filter(Deck.deck_name == deck_name).first()
-    card = Deck.query.filter(Deck.cards.id == id).first()
-
-    deck.cards.pop(card)
+    card = Card.query.get(id)
+    print(deck_name)
+    print(deck)
+    deck.cards.remove(card)
     return deck
+#post functions
+
+def create_post(username,post_title):
+
+    post = Post(username=username, post_title=post_title)
+
+    return post
+
+
+def edit_post(post_title):
+
+    return
+
+
+def delete_post(post_title):
+
+    return
+
 
 
 if __name__ == '__main__':
