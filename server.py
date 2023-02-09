@@ -143,7 +143,9 @@ def show_deck_contents():
     cards = deck.cards
     return render_template("deck_details.html", deck=deck, cards=cards)
 
-
+@app.route('/map')
+def store_locator():
+    return render_template('map.html')
 
 if __name__ == "__main__":
     connect_to_db(app)

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block head %}
+  <link rel="stylesheet" href="/static/style/style.css">
+
+{% endblock %}
+
+{% block body %}
+  <nav>
+    <section id="links-left">
+      <p>Location </p>
+      
+      <button id="geocode-address">
+        Address Please?
+      </button>
+    </section>
+
+    <section id="links-right">
+      <a href="/usersPage">Home</a>
+    </section>
+  </nav>
+
+  <section class="map">
+    <div id="map"></div>
+  </section>
+
+  <script src="/static/maps.js"></script>
+  <script
+    async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBf0UdtiM3tO7GF6ANSYRbsd4ka2sZz_m0&callback=initMap">
+  </script>
+
+<script 
+    async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBf0UdtiM3tO7GF6ANSYRbsd4ka2sZz_m0&libraries=places&callback=initMap">
+</script>
+
+
+
+{% endblock %}
