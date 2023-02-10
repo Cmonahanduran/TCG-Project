@@ -29,19 +29,21 @@ function initMap() {
                 radius: '400',
                 type: ['store']
             };
-            service = new google.maps.places.PlacesService(map);
-            service.nearbySearch(request, callback);
+            
         
-            function callback(results, status) {
-                if (status == google.maps.places.PlacesServiceStatus.OK) {
-                    for (var i = 0; i < results.length; i++){
+            function callback(results2, status2) {
+                console.log(results2)
+                if (status2 == google.maps.places.PlacesServiceStatus.OK) {
+                    for (var i = 0; i < results2.length; i++){
                         new google.maps.Marker({
-                            position: results[i],
+                            position: results2[i].geometry.location,
                             map,
                         });
                     }
                 }
             };
+            service = new google.maps.places.PlacesService(map);
+            service.nearbySearch(request, callback);
 
             new google.maps.Marker({
               position: userLocation,
