@@ -61,11 +61,14 @@ class Card(db.Model):
 
     users = db.relationship("User", secondary="collection", back_populates="cards")
     decks = db.relationship("Deck", secondary="cardhandler", back_populates="cards")
+    
 
     def __repr__(self):
         return f"<Card id={self.id} name={self.name} manaCost={self.manaCost} cmc={self.cmc} colors={self.colors} colorIdentity={self.colorIdentity} type={self.type} rarity={self.rarity} setName={self.setName} text={self.text}  flavor={self.flavor} artist={self.artist} imageUrl={self.imageUrl} "
     def get_json(self):
         return { 'id': self.id, 'name' : self.name, 'imageUrl': self.imageUrl }
+
+
 class CardHandler(db.Model):
     """Handles the cards between decks."""
 
@@ -90,6 +93,7 @@ class Deck(db.Model):
     cards = db.relationship("Card", secondary='cardhandler', back_populates='decks')
     users = db.relationship("User", back_populates='decks')
     
+
     def __repr__(self):
         return f"<Deck deck_id={self.deck_id} deck_name={self.deck_name}>"
 
@@ -103,12 +107,21 @@ class Post(db.Model):
     post_title = db.Column(db.String)
     post_text = db.Column(db.String)
     username = db.Column(db.String, db.ForeignKey('users.username'), nullable=False)
+    owned_card_id = db.Column(db.Integer, db.ForeignKey('card.id'), nullable=False)
+    trade_card_id = db.Column(db.Integer, db.ForeignKey('card.id'), nullable=False)
+
+    owned_card = db.relationship("Card",  foreign_keys="Post.owned_card_id")
+    trade_card = db.relationship("Card",  foreign_keys="Post.trade_card_id")
 
     
     user = db.relationship("User", back_populates="posts")
 
     def __repr__(self):
         return f"<Post post_title={self.post_title} post_text={self.post_text}"
+    def get_json(self):
+        return { 'post_title': self.post_title, 'username': self.username, 'post_text': self.post_text, 'owned_card': self.owned_card.name,'trade_card': self.trade_card.name }
+
+
 
 def connect_to_db(flask_app, db_uri="postgresql:///cards", echo=True):
     flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri

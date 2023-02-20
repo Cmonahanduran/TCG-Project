@@ -86,10 +86,56 @@ def create_deck():
 
 @app.route('/cards')
 def view_cards():
-
+    
     cards = crud.create_card_list()
 
     return render_template('card_list.html', cards=cards)
+
+@app.route('/all_posts')
+def json_posts():
+    posts_json = []
+    posts = crud.create_post_list()
+
+    for post in posts:
+        posts_json.append(post.get_json())
+    
+    return jsonify(posts_json)
+
+
+@app.route('/posts', methods=['POST'])
+def create_post():
+    username = session['username']
+    post_title = request.form.get('post_title')
+    post_text= request.form.get('post_text')
+    owned_card = request.form.get('owned_card_name')
+    trade_card = request.form.get('trade_card_name')
+
+    owned_card_id = crud.get_card_by_name(owned_card).id
+    trade_card_id = crud.get_card_by_name(trade_card).id
+
+    post = crud.create_post(username,post_title,post_text, owned_card_id, trade_card_id)
+
+
+    db.session.add(post)
+    db.session.commit()
+    flash("Trade Post creation succesful!")
+    return redirect('/usersPage')
+
+
+@app.route('/trade_accepted', methods=['POST'])
+def accepted_trade():
+
+    owned_card_name = request.form.get('owned_card')
+    trade_card_name = request.form.get('trade_card')
+    owned_card = crud.get_card_by_name(owned_card_name)
+    trade_card = crud.get_card_by_name(trade_card_name)
+    deck = owned_card.decks[0]
+    trade = crud.trade_cards(deck, owned_card, trade_card)
+    db.session.add(trade)
+    db.session.commit()
+    flash("Trade Succesful!")
+    return redirect('/usersPage')
+
 
 @app.route('/all_cards')
 def json_cards():
@@ -133,7 +179,6 @@ def remove_card_from_deck():
     db.session.commit()
     flash(f"Card removed from {deck_name}")
     return redirect('/usersPage')
-
 
 
 @app.route('/deck', methods=['POST'])

@@ -1,8 +1,6 @@
 
 
-
-
-function initMap() {
+   function initMap() {
     const map = new google.maps.Map(document.querySelector('#map'), {
       center: {
         lat: 37.601773,
@@ -26,29 +24,37 @@ function initMap() {
             // Create a marker
             var request = {
                 location: userLocation,
-                radius: '400',
-                type: ['store']
+                radius: '1000',
+                type: ['store', 'establishment','point_of_interest']
             };
             
         
             function callback(results2, status2) {
-                console.log(results2)
+              console.log(results2)
                 if (status2 == google.maps.places.PlacesServiceStatus.OK) {
                     for (var i = 0; i < results2.length; i++){
-                        new google.maps.Marker({
+                        const marker = new google.maps.Marker({
                             position: results2[i].geometry.location,
                             map,
                         });
+                          const infoWindow = new google.maps.InfoWindow({
+                              content:`<p><b>${results2[i].name}</b></p>`,
+                              disableAutoPan: true,
+                          });
+
+                        marker.addListener("click", () => {
+                    
+                            infoWindow.open(map, marker);
+                        });
+
                     }
                 }
             };
             service = new google.maps.places.PlacesService(map);
             service.nearbySearch(request, callback);
 
-            new google.maps.Marker({
-              position: userLocation,
-              map,
-            });
+
+
 
             map.setCenter(userLocation);
             map.setZoom(18);
@@ -60,5 +66,3 @@ function initMap() {
 
 
 }
-
-   

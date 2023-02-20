@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% block title %} {% endblock %}
     
+{% block head %}
+
+
+{% endblock %}
 
     {% block body %}
 <h1>Hello </h1>
@@ -34,7 +38,31 @@
     </div>
     <input type="submit">
   </form>
+<h3>Trading Posts</h3>
 
-  
+<form action="/posts" method="POST">
+<div class="post-form">
+<label for="post-title">Title:</label>
+<p><input name="post_title" id="post_title" type="text" /></p>
+<label for="post_text">Info:</label>
+<p><input name="post_text" id="post_text" type="text" /></p>
+ 
+<label for="owned-card-name">Exact card name you want to trade</label>
+<p><input name="owned_card_name" id="card_name" type="text" /></p>
+
+<label for="trade-card-name">Exact card name your looking to get</label>
+<p><input name="trade_card_name" id="card_name" type="text" /></p>
+
+</div>
+<input type="submit">
+</form>
+
+ <!-- React column div-->
+ <div id="container"></div>
+
+
+
+
+<script src="/static/tradingposts.jsx" type="text/jsx"></script>
 
 {% endblock %}

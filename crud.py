@@ -46,6 +46,10 @@ def get_card_by_id(id):
 
     return Card.query.get(id)
 
+def get_card_by_name(name):
+    
+    return Card.query.filter(Card.name == name).first()
+
 #deck functions
 
 def create_deck(deck_name, username):
@@ -53,6 +57,10 @@ def create_deck(deck_name, username):
     deck = Deck(deck_name=deck_name, username=username)
 
     return deck
+
+def get_deck_by_card_id(card_id):
+
+    deck = Deck.query.filter(Deck.name == card_id).first()
 
 def get_deck(deck_id):
 
@@ -74,23 +82,23 @@ def remove_card_from_deck(id,deck_name):
     print(deck)
     deck.cards.remove(card)
     return deck
+
+def trade_cards(deck, owned_card, trade_card):
+
+    deck.cards.remove(owned_card)
+    deck.cards.append(trade_card)
+    return deck
 #post functions
 
-def create_post(username,post_title):
+def create_post(username,post_title,post_text, owned_card_id, trade_card_id):
 
-    post = Post(username=username, post_title=post_title)
+    post = Post(username=username, post_title=post_title, post_text=post_text, owned_card_id=owned_card_id, trade_card_id=trade_card_id)
 
     return post
 
-
-def edit_post(post_title):
-
-    return
-
-
-def delete_post(post_title):
-
-    return
+def create_post_list():
+    
+    return Post.query.filter().all()
 
 
 
