@@ -1,8 +1,6 @@
 
-
-
+// setting the function to display the properties in a form so each trade can be accepted.
 function TradingPost(props) {
-    console.log(props)
     return (
       <div className="post">
         <p> Title: {props.title} </p>
@@ -18,10 +16,11 @@ function TradingPost(props) {
       </div>
     );
   }
+  // adding a state object
   function TradingPostContainer() {
     const [posts, setPosts] = React.useState([]);
   
-
+// fetch request used to pull user created posts
   React.useEffect(() => {
     fetch("/all_posts")
       .then((response) => { 
@@ -33,7 +32,7 @@ function TradingPost(props) {
 
   const tradingPosts = [];
 
-
+// loop through each post and push them to tradingPosts when their properties are set.
   for (const currentPost of posts) {
     console.log(currentPost)
     tradingPosts.push(
@@ -47,7 +46,7 @@ function TradingPost(props) {
       />,
     );
   }
-
+//return and render each post object in tradingPosts in a column at the designated div "container"
   return (
     <React.Fragment>
       <h2>Trading Posts</h2>
