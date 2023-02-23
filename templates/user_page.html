@@ -1,30 +1,37 @@
 {% extends 'base.html' %}
 {% block title %} {% endblock %}
     
-{% block head %}
 
 
-{% endblock %}
 
-    {% block body %}
-<h1>Hello </h1>
-<h2>Dashboard</h2>
-<ul>
-    <li><a href="/cards">View all cards</a></li>
-</ul>
-<ul>
-  <li><a href="/map">Store Locator</a></li>
-</ul>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% block left %}
+
+<div class="deck_creation">
 <form action="/create_deck" method="POST">
     <p>
-        Deck Name <input type="text" name="deckName">
+        Deck Name <input type="text" name="deckName" placeholder="Deck Name">
     </p>
     <p>
         <input type="submit">
     </p>
     </form>
 </div>
+
 <h1>View Decks</h1>
 <form action="/deck" method="POST">
     <div class="dropdown">
@@ -38,27 +45,72 @@
     </div>
     <input type="submit">
   </form>
-<h3>Trading Posts</h3>
+
+{% endblock %}
+{% block right %}
+<h3>Make Trade Post</h3>
 
 <form action="/posts" method="POST">
 <div class="post-form">
 <label for="post-title">Title:</label>
-<p><input name="post_title" id="post_title" type="text" /></p>
+<p><input name="post_title" id="post_title" type="text" placeholder="Title"/></p>
 <label for="post_text">Info:</label>
-<p><input name="post_text" id="post_text" type="text" /></p>
+<p><input name="post_text" id="post_text" type="text" placeholder="Trade Info"/></p>
  
 <label for="owned-card-name">Exact card name you want to trade</label>
-<p><input name="owned_card_name" id="card_name" type="text" /></p>
+<p><input name="owned_card_name" id="card_name" type="text" placeholder="Owned Card"/></p>
 
 <label for="trade-card-name">Exact card name your looking to get</label>
-<p><input name="trade_card_name" id="card_name" type="text" /></p>
+<p><input name="trade_card_name" id="card_name" type="text" placeholder="Trade Card"/></p>
 
 </div>
 <input type="submit">
 </form>
 
- <!-- React column div-->
- <div id="container"></div>
+<div id="container">
+ </div>
+{% endblock %}
+{% block mainContent %}
+<form action="/deck" method="POST">
+
+{% for deck in user_decks %} 
+        
+<div class="deckbox-wrapper">
+  <div class="deckbox" href="/static/images/40kBackground.jpeg">
+    <span class="deckbox-image" style="background-image: radial-gradient(transparent, rgb(0,0,0)), url('/static/images/40kBackground.jpeg');"></span>
+    <span class="deckbox-top position-relative">
+      <span class="d-flex">
+        <span class="flex-grow-1">
+          <span class="d-block">
+            
+          </span>
+        </span>
+      </span>
+    </span>
+  <span class="deckbox-bottom">
+    <div class="row justify-content-between position-relative">
+      <div class="col-auto">
+        <span class="badge bg-primary me-2" style="vertical-align: 3px;">{{deck.deck_name}}</span>
+      </div>
+    </div>
+    </span>
+  </div>
+</div>
+{% endfor %}
+
+</form>
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
 
 
 

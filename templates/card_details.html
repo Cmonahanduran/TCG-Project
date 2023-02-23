@@ -2,17 +2,23 @@
 
 {% block title %}{{ card.name }} - Details{% endblock %}
 
-{% block body %}
+
+{% block header %}
 <ul>
   <li><a href="/cards">Back to all cards</a></li>
 </ul>
 
 <h1>{{ card.name }}</h1>
+{% endblock %}
+
+{% block right %}
 
 <p>
   {{ card.text }}
 </p>
+{% endblock %}
 
+{% block mainContent %}
 <img src="{{ card.imageUrl }}">
   
 <form action="/add_to_deck/{{card.id}}" method="POST">
@@ -25,8 +31,7 @@
       </select>
     </div>
   </div>
-  <input type="submit">
+  <input text="Add to deck" type="submit">
 </form>
-
-
 {% endblock %}
+

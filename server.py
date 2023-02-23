@@ -20,6 +20,11 @@ def homepage():
 
     return render_template('homepage.html')
 
+@app.route('/users')
+def register():
+
+    return render_template('register.html')
+    
 @app.route('/users', methods=['POST'])
 def create_user():
     """Create new login"""
@@ -45,7 +50,7 @@ def login_authentication():
     """Verify username and email"""
     username = request.form.get("username")
     password = request.form.get("password")
-    
+    print(password)
 
     user = crud.get_user_by_username(username)
     if user:
