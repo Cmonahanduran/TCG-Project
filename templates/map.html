@@ -2,19 +2,18 @@
 
 
 
-{% block body %}
+{% block mainContent%}
   <nav>
-    <section id="links-left">
-      <p>Location </p>
+    <section id="links-left" >
+      Find Game Stores!
+      </section>
       
       <button id="geocode-address">
-        Address Please?
+        Location Please?
       </button>
     </section>
 
-    <section id="links-right">
-      <a href="/usersPage">Home</a>
-    </section>
+   
   </nav>
 
   <section class="map">
@@ -28,7 +27,6 @@
     async
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBf0UdtiM3tO7GF6ANSYRbsd4ka2sZz_m0&libraries=places&callback=initMap">
 </script>
-
-
-
 {% endblock %}
+
+

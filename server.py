@@ -189,7 +189,9 @@ def remove_card_from_deck():
 @app.route('/deck', methods=['POST'])
 def show_deck_contents():
     deck_id = request.form.get("Deck")
+    print(deck_id)
     deck = crud.get_deck(deck_id)
+    print(deck)
     cards = deck.cards
     return render_template("deck_details.html", deck=deck, cards=cards)
 

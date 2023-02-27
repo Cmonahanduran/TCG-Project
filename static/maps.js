@@ -25,7 +25,7 @@
             var request = {
                 location: userLocation,
                 radius: '1000',
-                type: ['store', 'establishment','point_of_interest']
+                type: ['store']
             };
             
         
@@ -38,7 +38,7 @@
                             map,
                         });
                           const infoWindow = new google.maps.InfoWindow({
-                              content:`<p><b>${results2[i].name}</b></p>`,
+                              content:`<div class="marker"><p><b>${results2[i].name}</b></p></div>`,
                               disableAutoPan: true,
                           });
 

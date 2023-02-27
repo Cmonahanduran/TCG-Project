@@ -2,7 +2,7 @@
 // setting the function to display the properties in a form so each trade can be accepted.
 function TradingPost(props) {
     return (
-      <table class="table table-hover">
+      <table className="table table-hover">
       <div className="post">
         <p> Title: {props.title} </p>
         <p>Username: {props.username}</p>
@@ -12,7 +12,9 @@ function TradingPost(props) {
         <input name="owned_card" type="hidden" value={props.owned_card}/>
         <p> Looking for: {props.trade_card}</p>
         <input name="trade_card" type="hidden" value={props.trade_card}/>
-        <input className="acceptTrade" type="submit" value="Accept Trade?"/>
+        <div class="pt-1 mb-4">
+              <button class="btn btn-info btn-lg btn-block" type="submit">Accept</button>
+        </div>
        </form>
       </div>
       </table>

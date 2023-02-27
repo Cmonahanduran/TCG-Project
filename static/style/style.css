@@ -5,7 +5,7 @@
 }
 
 body{
-    height: 95vh;
+    height: 95%;
     background: fixed ;
     font-family: sans-serif;
     text-align: center;
@@ -43,6 +43,8 @@ main {
     background: transparent;
     padding: 3em 0 3em 0;
     flex: 1 1 100px;
+    text-align: center;
+   
 }
 footer {
     background: transparent;
@@ -291,7 +293,9 @@ li {
 
 
 .card {
-    background: black;
+    background: transparent;
+   
+    border: transparent;
 }
 
 .btn-info {
@@ -310,4 +314,15 @@ a {
 }
 .acceptTrade {
     color: #fff;
+}
+
+
+.search-wrapper {
+    padding: 0.75rem 1rem;
+    border: 3px solid transparent;
+    border-radius: 5px;
+    
+}
+.marker{
+    color: #000;
 }

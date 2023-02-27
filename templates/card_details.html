@@ -3,13 +3,7 @@
 {% block title %}{{ card.name }} - Details{% endblock %}
 
 
-{% block header %}
-<ul>
-  <li><a href="/cards">Back to all cards</a></li>
-</ul>
 
-<h1>{{ card.name }}</h1>
-{% endblock %}
 
 {% block right %}
 
@@ -31,7 +25,8 @@
       </select>
     </div>
   </div>
-  <input text="Add to deck" type="submit">
+  <input type="submit" value="Add">
+ 
 </form>
 {% endblock %}
 

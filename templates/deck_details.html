@@ -2,16 +2,15 @@
 
 {% block title %}{{ deck.deck_name }} - Details{% endblock %}
 
-{% block body %}
 
 
+{% block mainContent %}
     {% for card in cards %}
     <div class="card" style="width: 18rem;">
         <img src="{{card.imageUrl}}" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">{{ card.name}}</h5>
           <h6 class="card-subtitle mb-2 text-muted">{{ card.rarity}}</h6>
-          <p class="card-text">{{ card.text}}</p>
         </div>
         <form action="/remove_card" method="POST"> 
             <input type="hidden" name="card_to_remove" value='{{ card.id }}'>
@@ -21,5 +20,4 @@
         </form>
       </div>
       {% endfor %}
-
 {% endblock %}

@@ -6,8 +6,7 @@ const getCardHTML = (card) =>
     return `<div class="card" style="width: 18rem;">
         <img src="${ card.imageUrl }" class="card-img-top">
         <div class="card-body">
-            <h5 class="card-title">${ card.name }</h5>
-            <a href="/cards/${card.id}" class="btn btn-primary">Card details</a>
+            <a href="/cards/${card.id}" class="btn btn-primary">Details</a>
         </div>
     </div>`
 };

@@ -26,9 +26,9 @@
     <p>
         Deck Name <input type="text" name="deckName" placeholder="Deck Name">
     </p>
-    <p>
-        <input type="submit">
-    </p>
+    <div class="pt-1 mb-4">
+      <button class="btn btn-info btn-lg btn-block" type="submit">Create!</button>
+    </div>
     </form>
 </div>
 
@@ -43,7 +43,7 @@
         </select>
       </div>
     </div>
-    <input type="submit">
+  <input class="btn btn-info btn-lg btn-block" type="submit">
   </form>
 
 {% endblock %}
@@ -53,25 +53,27 @@
 <form action="/posts" method="POST">
 <div class="post-form">
 <label for="post-title">Title:</label>
-<p><input name="post_title" id="post_title" type="text" placeholder="Title"/></p>
+<p><input name="post_title" id="post_title" type="text" placeholder=" Title"/></p>
 <label for="post_text">Info:</label>
-<p><input name="post_text" id="post_text" type="text" placeholder="Trade Info"/></p>
+<p><input name="post_text" id="post_text" type="text" placeholder=" Trade Info"/></p>
  
 <label for="owned-card-name">Exact card name you want to trade</label>
-<p><input name="owned_card_name" id="card_name" type="text" placeholder="Owned Card"/></p>
+<p><input name="owned_card_name" id="card_name" type="text" placeholder=" Owned Card"/></p>
 
 <label for="trade-card-name">Exact card name your looking to get</label>
-<p><input name="trade_card_name" id="card_name" type="text" placeholder="Trade Card"/></p>
+<p><input name="trade_card_name" id="card_name" type="text" placeholder=" Trade Card"/></p>
 
 </div>
-<input type="submit">
+<div class="pt-1 mb-4">
+  <button class="btn btn-info btn-lg btn-block" type="submit">Create</button>
+</div>
 </form>
 
 <div id="container">
  </div>
 {% endblock %}
 {% block mainContent %}
-<form action="/deck" method="POST">
+<form name="deckLook" action="/deck" method="POST">
 
 {% for deck in user_decks %} 
         
@@ -90,15 +92,18 @@
   <span class="deckbox-bottom">
     <div class="row justify-content-between position-relative">
       <div class="col-auto">
-        <span class="badge bg-primary me-2" style="vertical-align: 3px;">{{deck.deck_name}}</span>
+        
+        <span name="Deck" class="badge bg-primary me-2" style="vertical-align: 3px;" onclick="deckLook.submit()" >{{deck.deck_name}}</span>
+       
       </div>
     </div>
     </span>
   </div>
 </div>
+</form>
 {% endfor %}
 
-</form>
+
 
 
 
